@@ -2,11 +2,11 @@ language: julia
 
 os:
   - linux
-  # - osx
+  - osx
 
 julia:
   - 1.0
-  # - nightly
+  - nightly
 
 before_script:
   # Every 30 seconds, look for the build log file. If it exists, then
