@@ -1,23 +1,23 @@
 vals64 = collect(values(res[Float64])) 
 vals32 = collect(values(res[Float32])) 
-xticklabels = String.(collect(keys(res[Float64])))
-ymax = max(maximum(vals32), maximum(vals64))
-yticklabels = vcat(1, collect(0:div(ymax, 5):ymax))
-order = sortperm(vals64)
 
-# vals2 = vcat(collect(values(res[Float64])), collect(values(res[Float32])))
-x = collect(1:length(vals64))
-barwidth = 0.4
-p = bar(x .- barwidth/2, vals64[order], bar_width = barwidth,
-    color = :purple,
-    ylabel = "performance ratio", label = "Float64", #title = "Performance for $NVALS", 
+t1 = Float32
+t2 = Float64
+
+yt = reduce(hcat, [collect(values(res[t])) for t in (t1, t2)  ])
+xticklabels = string.(collect(keys(res[t2])))
+ymax = maximum(yt)
+yticklabels = vcat(1, collect(0:div(ymax, 5):ymax))
+order = sortperm(yt[:, 2])
+
+p = StatsPlots.groupedbar(xticklabels[order], yt[order, :],
+    color = [:gold :purple],
+    ylabel = "performance ratio", label = string.([t1 t2]), #title = "Performance for n = $NVALS", 
     tickfontsize = 12, titlefontsize = 16, guidefontsize = 14, legendfontsize = 14,
-    dpi = 100,
-    xlims = [x[1] - barwidth, x[end] + barwidth],
+    dpi = 100, xlims = [0.5, length(xticklabels)],
     xrotation = 60, 
-    xticks = (x, xticklabels), yticks = yticklabels)
-bar!(p, x .+ barwidth/2, vals32[order], bar_width = barwidth,
-    color = :gold,
-    label = "Float32" )
-plot!(p, [x[1] - barwidth, x[end] + barwidth], [1, 1], 
+    yticks = yticklabels
+)
+
+plot!(p, [0, length(xticklabels)+0.5], [1, 1], 
     color = :black, label = "", linewidth = 2, linestyle = :dash)
