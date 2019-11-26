@@ -26,28 +26,19 @@ end
 
 # plot benchmarks 
 p = plotgroupedbench(res, realtypes[1], realtypes[2], REP_NVALS)
-
 savefig(p, "performance.png")
 
-
-
-
+### Complex inputs
+# compute benchmarks
 complextypes = complex.(realtypes)
 resComplex = Dict(t => 
     Dict( fn[2] => medianbench(fn, REP_NVALS,  t)
         for fn in base_unary_complex )
     for t in complextypes)
 
-p = plotgroupedbench(res, realtypes[1], realtypes[2], REP_NVALS)
+# plot
+p = plotgroupedbench(resComplex, complextypes[1], complextypes[2], REP_NVALS)
 savefig(p, "performance_complex.png")
-
-
-
-
-# 
-    
-# rat = [medianbench(fn, n, intype) n in nArray]
-
 
 
 

@@ -12,10 +12,10 @@ function medianbench(fn, nvals, intype; unary = true)
     base_fn = eval(:($(fn[1]).$(fn[2]))) 
     vml_fn = eval(:(VML.$(fn[2])))
 
-    baseBench = @benchmark $base_fn.($(input)...)
-    vmlBench = @benchmark $vml_fn($(input)...)
+    baseTimes = (@benchmark $base_fn.($(input)...)).times
+    vmlTimes = (@benchmark $vml_fn($(input)...)).times
 
-    return median(baseBench.times)/median(vmlBench.times)
+    return median(baseTimes)/median(vmlTimes)
 end
 
 function plotgroupedbench(res, t1, t2, REP_NVALS)
@@ -31,7 +31,7 @@ function plotgroupedbench(res, t1, t2, REP_NVALS)
         color = [:gold :purple],
         ylabel = "performance ratio", label = string.([t1 t2]), title = "Performance for n = $REP_NVALS", 
         tickfontsize = 12, titlefontsize = 16, guidefontsize = 14, legendfontsize = 14,
-        dpi = 100, xlims = [0.5, length(xticklabels)],
+        dpi = 100, xlims = [0, length(xticklabels)],
         xrotation = 60, 
         yticks = yticklabels
     )
