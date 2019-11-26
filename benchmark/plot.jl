@@ -1,6 +1,12 @@
+# after running bm_extended.jl in two seperate julia session, this script will create the plots.
+# It will likely need a new julia session. 
+
 using Plots
 using Statistics
 pyplot()
+
+resSD32 = load("partFloat32.jld2")["resSDFloat32"]
+resSD32 = load("partFloat32.jld2")["resSDFloat32"]
 
 function plotextendedbm(resSD)
 

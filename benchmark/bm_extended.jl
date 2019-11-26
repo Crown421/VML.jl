@@ -1,3 +1,10 @@
+### This is very much WIP
+# to recreate the plots this file needs to run twice, once with each of the following lines uncommented.
+t = Float32
+# t = Float64
+# You will also need about 13Gb of free RAM. 
+
+
 include(joinpath(dirname(dirname(@__FILE__)), "test", "common.jl"))
 
 idx = setdiff(1:length(base_unary_real), findall(getindex.(base_unary_real, 2) .== :lgamma))
@@ -8,7 +15,7 @@ include("bm_functions.jl")
 using FileIO
 using JLD2
 
-using HypothesisTests
+# using HypothesisTests
 
 function medianandtest(fn, nvals, intype; unary = true)
     input = unary ? (randindomain(intype, nvals, fn[3]), ) : (randindomain(intype, nvals, fn[3]), randindomain(intype, nvals, fn[3]))
@@ -22,6 +29,8 @@ function medianandtest(fn, nvals, intype; unary = true)
     ratio = median(baseBench)/median(vmlBench)
     # p = pvalue(MannWhitneyUTest(baseBench.times, vmlBench.times))
     # return (ratio, p)
+
+    # helps a little with memory/ cache issues 
     baseBench = nothing
     vmlBench = nothing
 
@@ -37,7 +46,6 @@ function computesizedep(fn, intype, nArray; unary = true)
     return result
 end
 
-
 function sizedep(t, bench_unary_real) 
     nArray = [i*10^j for i=1:2:9, j = 3:5][:]
 
@@ -46,10 +54,10 @@ function sizedep(t, bench_unary_real)
         resSD[fn[2]] = computesizedep(fn, t, nArray)
     end
 
-    save("part32.jld2", "resSD32", resSD)
+    save("part$t.jld2", "resSD$t", resSD)
 end
 
-sizedep(Float32, bench_unary_real) 
+sizedep(t, bench_unary_real) 
 
 # realtypes = (Float32, Float64)
 # resSD = Dict(t => 
