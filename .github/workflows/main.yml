@@ -24,7 +24,6 @@ jobs:
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
-      - run: julia -e 'println("Hello, World!")'
       - run: julia -e 'using Pkg; Pkg.add(PackageSpec(url=\"https://github.com/JuliaComputing/MKL.jl\"));'
         if: matrix.os == 'windows-latest'
       - run: julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/JuliaComputing/MKL.jl"));'
