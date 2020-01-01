@@ -25,9 +25,9 @@ jobs:
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
-      - run: julia -e 'using Pkg; Pkg.develop(PackageSpec(url=\"https://github.com/JuliaComputing/MKL.jl\")); Pkg.instantiate()'
+      - run: julia --color=yes --project -e 'using Pkg; Pkg.develop(PackageSpec(url=\"https://github.com/JuliaComputing/MKL.jl\")); Pkg.instantiate()'
         if: matrix.os == 'windows-latest'
-      - run: julia -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/JuliaComputing/MKL.jl")); Pkg.instantiate()'
+      - run: julia --color=yes --project -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/JuliaComputing/MKL.jl")); Pkg.instantiate()'
         if: matrix.os != 'windows-latest'
       - uses: julia-actions/julia-buildpkg@latest
       - run: julia -e 'using Pkg; Pkg.status()'
