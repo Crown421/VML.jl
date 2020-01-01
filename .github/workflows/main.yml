@@ -52,7 +52,7 @@ jobs:
       - run: curl https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB > GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
       - run: sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
       - run: rm GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
-      - run: sh -c 'echo deb https://apt.repos.intel.com/mkl all main > /etc/apt/sources.list.d/intel-mkl.list'
+      - run: sudo sh -c 'echo deb https://apt.repos.intel.com/mkl all main > /etc/apt/sources.list.d/intel-mkl.list'
       - run: sudo apt-get update
       - run: sudo apt-get install -y intel-mkl-64bit-2019.4-070
       - run: source /opt/intel/mkl/bin/mklvars.sh intel64
