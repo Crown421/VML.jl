@@ -7,6 +7,7 @@ jobs:
     name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         version:
           - '1.0'
@@ -29,4 +30,5 @@ jobs:
       - run: julia -e 'using Pkg; Pkg.add(PackageSpec(url="https://github.com/JuliaComputing/MKL.jl"));'
         if: matrix.os != 'windows-latest'
       - uses: julia-actions/julia-buildpkg@latest
-      - run: julia --color=yes --check-bounds=yes -e 'using Pkg; Pkg.test(coverage=true)'
+      - run: julia -e 'using Pkg; Pkg.status()'
+      - uses: julia-actions/julia-runtest@latest
