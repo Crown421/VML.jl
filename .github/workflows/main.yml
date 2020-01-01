@@ -57,6 +57,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y intel-mkl-64bit-2019.4-070
           source /opt/intel/mkl/bin/mklvars.sh intel64
+      - env: 
+          LD_LIBRARY_PATH: /opt/intel/compilers_and_libraries_2019.4.243/linux/mkl/lib/intel64_lin/
       - run: echo $LD_LIBRARY_PATH
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@v1
