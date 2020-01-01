@@ -86,14 +86,6 @@ uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 [[Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 
-[[MKL]]
-deps = ["BinaryProvider", "Libdl", "LinearAlgebra", "PackageCompiler", "Test"]
-git-tree-sha1 = "22e1063dfa595b24956d7b364c33a4f45e70e247"
-repo-rev = "master"
-repo-url = "https://github.com/JuliaComputing/MKL.jl.git"
-uuid = "33e6dc65-8f57-5167-99aa-e5a354878fb2"
-version = "0.0.0"
-
 [[Markdown]]
 deps = ["Base64"]
 uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
