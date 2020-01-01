@@ -16,4 +16,7 @@ jobs:
         uses: julia-actions/setup-julia@v1
         with:
           version: ${{ matrix.julia-version }}
-      - run: julia -e 'println(\"Hello, World!\")'
+      - run: julia -e 'println(""Hello, World!"")'
+        if: matrix.os == windows-latest
+      - run: julia -e 'println("Hello, World!")'
+        if: matrix.os != windows-latest
