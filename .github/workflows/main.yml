@@ -25,17 +25,17 @@ jobs:
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
-      - run: julia -e 'using Pkg; Pkg.develop(PackageSpec(url=\"https://github.com/JuliaComputing/MKL.jl\"));'
+      - run: julia -e 'using Pkg; Pkg.develop(PackageSpec(url=\"https://github.com/JuliaComputing/MKL.jl\")); Pkg.instantiate()'
         if: matrix.os == 'windows-latest'
-      - run: julia -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/JuliaComputing/MKL.jl"));'
+      - run: julia -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/JuliaComputing/MKL.jl")); Pkg.instantiate()'
         if: matrix.os != 'windows-latest'
       - uses: julia-actions/julia-buildpkg@latest
       - run: julia -e 'using Pkg; Pkg.status()'
-#       - uses: julia-actions/julia-runtest@latest
-      - run: julia --color=yes --check-bounds=yes -e 'using Pkg; Pkg.test("IntelVectorMath", coverage=true)'
-        if: matrix.os != 'windows-latest'
-      - run: julia --color=yes --check-bounds=yes -e 'using Pkg; Pkg.test(\"IntelVectorMath\", coverage=true)'
-        if: matrix.os == 'windows-latest'
+      - uses: julia-actions/julia-runtest@latest
+#       - run: julia --color=yes --check-bounds=yes -e 'using Pkg; Pkg.test("IntelVectorMath", coverage=true)'
+#         if: matrix.os != 'windows-latest'
+#       - run: julia --color=yes --check-bounds=yes -e 'using Pkg; Pkg.test(\"IntelVectorMath\", coverage=true)'
+#         if: matrix.os == 'windows-latest'
 
 #   testAptMKL:
 #     name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }}
@@ -59,3 +59,4 @@ jobs:
 #       - run: sh -c 'echo deb https://apt.repos.intel.com/mkl all main > /etc/apt/sources.list.d/intel-mkl.list'
 #       - run: apt-get update
 #       - run: apt-get install -y intel-mkl-64bit-2019.4-070
+#       - run: source /opt/intel/mkl/bin/mklvars.sh intel64
