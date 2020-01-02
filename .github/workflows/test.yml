@@ -25,6 +25,5 @@ jobs:
         shell: bash
       - run: |
           println("Hello, World!")
-          using InteractiveUtils; versioninfo()
           using Pkg; Pkg.add(PackageSpec(url="https://github.com/johncwok/DCCA.jl"));
         shell: bash -c "julia --color=yes --project {0}"
