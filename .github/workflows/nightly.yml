@@ -1,4 +1,4 @@
-name: julia 1.0/1.3
+name: julia nightly
 on:
   push:
   pull_request:
