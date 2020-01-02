@@ -1,0 +1,29 @@
+name: shell test
+on:
+  push:
+    
+jobs:
+  testshell:
+    name: Julia ${{ matrix.version }} - ${{ matrix.os }} - ${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        version:
+          - '1.3'
+        os:
+          - windows-latest
+        arch:
+          - x64
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: julia-actions/setup-julia@latest
+        with:
+          version: ${{ matrix.version }}
+          arch: ${{ matrix.arch }}
+      - run: julia -e 'println("Hello, World!")'
+        shell: bash
+      - run: |
+          println("Hello, World!")
+          using Pkg; Pkg.add(PackageSpec(url="https://github.com/JuliaComputing/MKL.jl"));
+          shell: julia --color=yes --project {0}
